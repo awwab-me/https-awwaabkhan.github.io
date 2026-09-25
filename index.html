@@ -99,7 +99,8 @@
             margin: 6px;
         }
 
-        .primary {
+        .primary,
+        .download {
             background: #39ff88;
             color: #06100a;
         }
@@ -107,6 +108,15 @@
         .secondary {
             border: 1px solid #2a3850;
             color: white;
+        }
+
+        .download:hover {
+            opacity: 0.85;
+        }
+
+        .secondary:hover {
+            border-color: #39ff88;
+            color: #39ff88;
         }
 
         section {
@@ -167,6 +177,12 @@
             text-decoration: none;
             margin: 0 8px;
         }
+
+        .download-info {
+            margin-top: 14px;
+            color: #7f8ba0;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -182,9 +198,15 @@
 </header>
 
 <section class="hero">
-    <div class="badge">SMART • FAST • AI POWERED</div>
 
-    <h1>Your AI.<br><span>Your Way.</span></h1>
+    <div class="badge">
+        SMART • FAST • AI POWERED
+    </div>
+
+    <h1>
+        Your AI.<br>
+        <span>Your Way.</span>
+    </h1>
 
     <p>
         NEXORA AI is a smart AI assistant built for chatting, coding,
@@ -192,18 +214,41 @@
     </p>
 
     <div class="buttons">
-        <a class="btn primary" href="#features">Explore NEXORA AI</a>
-        <a class="btn secondary" href="#about">Learn More</a>
+
+        <!-- NEXORA AI DOWNLOAD BUTTON -->
+        <a class="btn download"
+           href="NEXORA%20AI%20Setup.exe"
+           download>
+            Download NEXORA AI
+        </a>
+
+        <p class="download-info">
+            Download the installer and set up NEXORA AI on your Windows PC.
+        </p>
+
+        <a class="btn secondary" href="#features">
+            Explore Features
+        </a>
+
+        <a class="btn secondary" href="#about">
+            Learn More
+        </a>
+
     </div>
+
 </section>
 
 <section id="features">
-    <h2 class="section-title">Powerful AI Features</h2>
+
+    <h2 class="section-title">
+        Powerful AI Features
+    </h2>
 
     <div class="cards">
 
         <div class="card">
             <h3>AI Chat</h3>
+
             <p>
                 Chat with an intelligent AI assistant for questions,
                 ideas, explanations and everyday tasks.
@@ -212,6 +257,7 @@
 
         <div class="card">
             <h3>Multiple AI Models</h3>
+
             <p>
                 NEXORA AI can work with multiple AI providers including
                 Gemini, OpenRouter and Groq.
@@ -220,6 +266,7 @@
 
         <div class="card">
             <h3>Coding Assistant</h3>
+
             <p>
                 Get help with programming, debugging, explanations
                 and development projects.
@@ -228,6 +275,7 @@
 
         <div class="card">
             <h3>Productivity</h3>
+
             <p>
                 Use NEXORA AI for school work, projects, ideas,
                 writing and everyday productivity.
@@ -235,10 +283,14 @@
         </div>
 
     </div>
+
 </section>
 
 <section id="about">
-    <h2 class="section-title">About NEXORA AI</h2>
+
+    <h2 class="section-title">
+        About NEXORA AI
+    </h2>
 
     <p class="about">
         NEXORA AI is an AI assistant designed to bring useful artificial
@@ -246,15 +298,27 @@
         help users communicate with AI, learn, code, create and get things
         done more efficiently.
     </p>
+
 </section>
 
 <footer>
-    <p>© 2026 NEXORA AI. All rights reserved.</p>
 
-    <div style="margin-top:12px;">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
+    <p>
+        © 2026 NEXORA AI. All rights reserved.
+    </p>
+
+    <div style="margin-top: 12px;">
+
+        <a href="privacy.html">
+            Privacy Policy
+        </a>
+
+        <a href="terms.html">
+            Terms of Service
+        </a>
+
     </div>
+
 </footer>
 
 </body>
