@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,6 +97,8 @@
             text-decoration: none;
             font-weight: 700;
             margin: 6px;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
 
         .primary,
@@ -112,11 +114,32 @@
 
         .download:hover {
             opacity: 0.85;
+            transform: translateY(-2px);
         }
 
         .secondary:hover {
             border-color: #39ff88;
             color: #39ff88;
+        }
+
+        .download-info {
+            margin-top: 14px;
+            color: #7f8ba0;
+            font-size: 14px;
+        }
+
+        .platform-buttons {
+            margin-top: 18px;
+        }
+
+        .android-btn {
+            background: #39ff88;
+            color: #06100a;
+        }
+
+        .windows-btn {
+            border: 1px solid #2a3850;
+            color: #ffffff;
         }
 
         section {
@@ -178,10 +201,193 @@
             margin: 0 8px;
         }
 
-        .download-info {
-            margin-top: 14px;
-            color: #7f8ba0;
+        /* ================================
+           APK WARNING MODAL
+        ================================= */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(7px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .download-modal {
+            width: 100%;
+            max-width: 570px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #0d1422;
+            border: 1px solid #26334a;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 193, 7, 0.12);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .download-modal h2 {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .download-modal .intro {
+            color: #aab4c7;
+            line-height: 1.65;
+            font-size: 15px;
+            margin-bottom: 22px;
+        }
+
+        .warning-box {
+            background: #111b2c;
+            border: 1px solid #26334a;
+            border-radius: 13px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .warning-box h3 {
+            color: #39ff88;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .warning-box p {
+            color: #aab4c7;
+            line-height: 1.6;
             font-size: 14px;
+        }
+
+        .warning-box ul {
+            margin: 10px 0 0 20px;
+            color: #aab4c7;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .important {
+            border-color: rgba(255, 193, 7, 0.35);
+        }
+
+        .important h3 {
+            color: #ffc107;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .modal-actions a,
+        .modal-actions button {
+            flex: 1;
+            min-height: 48px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .apk-download {
+            background: #39ff88;
+            color: #06100a;
+            border: none;
+        }
+
+        .apk-download:hover {
+            opacity: 0.88;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #2a3850;
+        }
+
+        .cancel-btn:hover {
+            border-color: #39ff88;
+            color: #39ff88;
+        }
+
+        .modal-note {
+            text-align: center;
+            margin-top: 15px;
+            color: #68758a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                margin-left: 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 80px 18px 70px;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .download-modal {
+                padding: 23px;
+                border-radius: 17px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions a,
+            .modal-actions button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -189,13 +395,18 @@
 <body>
 
 <header>
-    <div class="logo">NEXORA <span>AI</span></div>
+
+    <div class="logo">
+        NEXORA <span>AI</span>
+    </div>
 
     <nav>
         <a href="#features">Features</a>
         <a href="#about">About</a>
     </nav>
+
 </header>
+
 
 <section class="hero">
 
@@ -215,15 +426,23 @@
 
     <div class="buttons">
 
-        <!-- NEXORA AI DOWNLOAD BUTTON -->
-        <a class="btn download"
+        <!-- WINDOWS DOWNLOAD -->
+
+        <a class="btn download windows-btn"
            href="NEXORA_AI_Setup.exe"
            download>
-            Download NEXORA AI
+            Download for Windows
         </a>
 
+        <!-- ANDROID APK DOWNLOAD -->
+
+        <button class="btn android-btn"
+                onclick="openAPKWarning()">
+            Download Android APK
+        </button>
+
         <p class="download-info">
-            Download the installer and set up NEXORA AI on your Windows PC.
+            Available for Windows PC and Android devices.
         </p>
 
         <a class="btn secondary" href="#features">
@@ -238,6 +457,7 @@
 
 </section>
 
+
 <section id="features">
 
     <h2 class="section-title">
@@ -247,44 +467,56 @@
     <div class="cards">
 
         <div class="card">
+
             <h3>AI Chat</h3>
 
             <p>
                 Chat with an intelligent AI assistant for questions,
                 ideas, explanations and everyday tasks.
             </p>
+
         </div>
 
+
         <div class="card">
+
             <h3>Multiple AI Models</h3>
 
             <p>
                 NEXORA AI can work with multiple AI providers including
                 Gemini, OpenRouter and Groq.
             </p>
+
         </div>
 
+
         <div class="card">
+
             <h3>Coding Assistant</h3>
 
             <p>
                 Get help with programming, debugging, explanations
                 and development projects.
             </p>
+
         </div>
 
+
         <div class="card">
+
             <h3>Productivity</h3>
 
             <p>
                 Use NEXORA AI for school work, projects, ideas,
                 writing and everyday productivity.
             </p>
+
         </div>
 
     </div>
 
 </section>
+
 
 <section id="about">
 
@@ -293,13 +525,16 @@
     </h2>
 
     <p class="about">
+
         NEXORA AI is an AI assistant designed to bring useful artificial
         intelligence tools into one simple application. It is built to
         help users communicate with AI, learn, code, create and get things
         done more efficiently.
+
     </p>
 
 </section>
+
 
 <footer>
 
@@ -320,6 +555,171 @@
     </div>
 
 </footer>
+
+
+<!-- =========================================
+     APK WARNING MODAL
+========================================= -->
+
+<div class="modal-overlay"
+     id="apkWarningModal"
+     onclick="closeAPKWarningOutside(event)">
+
+    <div class="download-modal">
+
+        <div class="modal-icon">
+            ⚠️
+        </div>
+
+        <h2>
+            Before You Download
+        </h2>
+
+        <p class="intro">
+
+            NEXORA AI for Android is distributed as an APK file.
+            Because the app is downloaded outside the Google Play Store,
+            your browser or Android device may display a security
+            warning or installation confirmation.
+
+        </p>
+
+
+        <div class="warning-box">
+
+            <h3>
+                📱 Android Security Messages
+            </h3>
+
+            <p>
+                Depending on your Android device and browser, you may see
+                messages such as:
+            </p>
+
+            <ul>
+                <li>
+                    “This type of file can harm your device”
+                </li>
+
+                <li>
+                    “For your security, your phone currently isn't
+                    allowed to install unknown apps”
+                </li>
+
+                <li>
+                    A security scan or installation confirmation
+                </li>
+
+                <li>
+                    Other APK installation prompts
+                </li>
+            </ul>
+
+        </div>
+
+
+        <div class="warning-box">
+
+            <h3>
+                📲 After Downloading
+            </h3>
+
+            <p>
+                Open the downloaded APK and follow the Android
+                installation prompts. Android may ask you to review
+                installation permissions or security settings.
+            </p>
+
+        </div>
+
+
+        <div class="warning-box important">
+
+            <h3>
+                ⚠️ Important
+            </h3>
+
+            <p>
+                Only download NEXORA AI if you intentionally came to
+                the official NEXORA AI website. Always review security
+                warnings and permissions shown by your device before
+                installing an application.
+            </p>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <!-- CHANGE THIS FILE NAME IF YOUR APK HAS A DIFFERENT NAME -->
+
+            <a class="apk-download"
+               href="NEXORA_AI.apk"
+               download>
+                DOWNLOAD APK
+            </a>
+
+            <button class="cancel-btn"
+                    onclick="closeAPKWarning()">
+                ← BACK / CANCEL
+            </button>
+
+        </div>
+
+
+        <p class="modal-note">
+            You can cancel at any time without downloading the APK.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function openAPKWarning() {
+
+        document
+            .getElementById("apkWarningModal")
+            .classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    function closeAPKWarning() {
+
+        document
+            .getElementById("apkWarningModal")
+            .classList.remove("active");
+
+        document.body.style.overflow = "";
+    }
+
+
+    function closeAPKWarningOutside(event) {
+
+        if (event.target.id === "apkWarningModal") {
+
+            closeAPKWarning();
+
+        }
+
+    }
+
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            closeAPKWarning();
+
+        }
+
+    });
+
+</script>
 
 </body>
 </html>
