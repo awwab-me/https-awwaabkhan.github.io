@@ -1,743 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>NEXORA AI — Your AI. Your Way.</title>
-
-    <meta name="description" content="NEXORA AI is a smart AI assistant designed for chatting, coding, productivity and everyday AI tasks.">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #070b14;
-            color: #ffffff;
-            min-height: 100vh;
-        }
-
-        header {
-            width: 100%;
-            padding: 22px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #182033;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #39ff88;
-        }
-
-        nav a {
-            color: #c8d0df;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            color: #39ff88;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 110px 20px 90px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 8px 15px;
-            border: 1px solid #26334a;
-            border-radius: 30px;
-            color: #39ff88;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: clamp(45px, 8vw, 82px);
-            line-height: 1;
-            margin-bottom: 22px;
-        }
-
-        h1 span {
-            color: #39ff88;
-        }
-
-        .hero p {
-            max-width: 650px;
-            margin: auto;
-            color: #aab4c7;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .buttons {
-            margin-top: 35px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 25px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            margin: 6px;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        .primary,
-        .download {
-            background: #39ff88;
-            color: #06100a;
-        }
-
-        .web-ai-btn {
-            background: #39ff88;
-            color: #06100a;
-            box-shadow: 0 0 20px rgba(57, 255, 136, 0.2);
-        }
-
-        .web-ai-btn:hover {
-            opacity: 0.88;
-            transform: translateY(-2px);
-        }
-
-        .secondary {
-            border: 1px solid #2a3850;
-            color: white;
-        }
-
-        .download:hover {
-            opacity: 0.85;
-            transform: translateY(-2px);
-        }
-
-        .secondary:hover {
-            border-color: #39ff88;
-            color: #39ff88;
-        }
-
-        .download-info {
-            margin-top: 14px;
-            color: #7f8ba0;
-            font-size: 14px;
-        }
-
-        .platform-buttons {
-            margin-top: 18px;
-        }
-
-        .android-btn {
-            background: #39ff88;
-            color: #06100a;
-        }
-
-        .windows-btn {
-            border: 1px solid #2a3850;
-            color: #ffffff;
-        }
-
-        section {
-            padding: 75px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 35px;
-            margin-bottom: 45px;
-        }
-
-        .cards {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: #0d1422;
-            border: 1px solid #1d2a40;
-            border-radius: 16px;
-            padding: 28px;
-        }
-
-        .card h3 {
-            margin-bottom: 12px;
-            color: #39ff88;
-        }
-
-        .card p {
-            color: #aab4c7;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .about {
-            max-width: 850px;
-            margin: auto;
-            text-align: center;
-            color: #aab4c7;
-            line-height: 1.8;
-            font-size: 17px;
-        }
-
-        footer {
-            border-top: 1px solid #182033;
-            padding: 30px 8%;
-            text-align: center;
-            color: #7f8ba0;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #39ff88;
-            text-decoration: none;
-            margin: 0 8px;
-        }
-
-        /* ================================
-            APK WARNING MODAL
-        ================================= */
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.78);
-            backdrop-filter: blur(7px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 9999;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .download-modal {
-            width: 100%;
-            max-width: 570px;
-            max-height: 90vh;
-            overflow-y: auto;
-            background: #0d1422;
-            border: 1px solid #26334a;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
-            animation: modalIn 0.2s ease;
-        }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px) scale(0.98);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: rgba(255, 193, 7, 0.12);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 27px;
-            margin-bottom: 18px;
-        }
-
-        .download-modal h2 {
-            font-size: 27px;
-            margin-bottom: 12px;
-        }
-
-        .download-modal .intro {
-            color: #aab4c7;
-            line-height: 1.65;
-            font-size: 15px;
-            margin-bottom: 22px;
-        }
-
-        .warning-box {
-            background: #111b2c;
-            border: 1px solid #26334a;
-            border-radius: 13px;
-            padding: 18px;
-            margin-bottom: 18px;
-        }
-
-        .warning-box h3 {
-            color: #39ff88;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .warning-box p {
-            color: #aab4c7;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .warning-box ul {
-            margin: 10px 0 0 20px;
-            color: #aab4c7;
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        .important {
-            border-color: rgba(255, 193, 7, 0.35);
-        }
-
-        .important h3 {
-            color: #ffc107;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 22px;
-        }
-
-        .modal-actions a,
-        .modal-actions button {
-            flex: 1;
-            min-height: 48px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .apk-download {
-            background: #39ff88;
-            color: #06100a;
-            border: none;
-        }
-
-        .apk-download:hover {
-            opacity: 0.88;
-        }
-
-        .cancel-btn {
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid #2a3850;
-        }
-
-        .cancel-btn:hover {
-            border-color: #39ff88;
-            color: #39ff88;
-        }
-
-        .modal-note {
-            text-align: center;
-            margin-top: 15px;
-            color: #68758a;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 600px) {
-
-            header {
-                padding: 18px 5%;
-            }
-
-            nav a {
-                margin-left: 12px;
-                font-size: 12px;
-            }
-
-            .hero {
-                padding: 80px 18px 70px;
-            }
-
-            section {
-                padding: 60px 5%;
-            }
-
-            .download-modal {
-                padding: 23px;
-                border-radius: 17px;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-
-            .modal-actions a,
-            .modal-actions button {
-                width: 100%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA AI — Your AI. Your Way.</title>
+<meta name="description" content="NEXORA AI is a smart AI assistant designed for chatting, coding, productivity and everyday AI tasks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060912;
+  --surface:#0c1220;
+  --surface-2:#101829;
+  --line:#1a2438;
+  --line-2:#27344d;
+  --text:#f2f5fb;
+  --muted:#8f9bb2;
+  --accent:#39ff88;
+  --accent-ink:#04120a;
+  --warn:#ffc107;
+  --display:"Bricolage Grotesque","Segoe UI",Arial,sans-serif;
+  --body:"Instrument Sans","Segoe UI",Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(900px 480px at 78% -8%,rgba(57,255,136,.09),transparent 70%);
+  background-repeat:no-repeat;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(6,9,18,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.2px;text-decoration:none}
+.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:26px}
+nav a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+nav a:hover{color:var(--text)}
+nav a.nav-cta{color:var(--accent-ink);background:var(--accent);padding:9px 16px;border-radius:999px;font-weight:600}
+nav a.nav-cta:hover{color:var(--accent-ink);filter:brightness(.92)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:12px;font:600 15px var(--body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .2s,filter .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 30px rgba(57,255,136,.22)}
+.btn-primary:hover{filter:brightness(.93)}
+.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--line-2)}
+.btn-ghost:hover{border-color:var(--accent)}
+.btn-off{background:transparent;color:#66738a;border:1px dashed var(--line-2);cursor:not-allowed}
+.btn-off:hover{transform:none}
+
+/* hero */
+.hero{padding:96px 0 84px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 11px;border:1px solid var(--line-2);border-radius:999px;color:var(--muted);font-size:13.5px;margin-bottom:26px;background:var(--surface)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(57,255,136,.16)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(48px,7.2vw,88px);line-height:.96;letter-spacing:-.035em;margin-bottom:24px}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{max-width:30em;color:var(--muted);font-size:18.5px;line-height:1.65}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.avail{margin-top:18px;color:#66738a;font-size:14px;max-width:34em}
+
+/* chat preview */
+.chat{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line-2);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden}
+.chat-top{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.chat-top b{width:10px;height:10px;border-radius:50%;background:#26334a}
+.chat-top span{margin-left:8px;color:var(--muted);font-size:13px}
+.chat-body{padding:22px 20px 8px;display:flex;flex-direction:column;gap:14px;min-height:300px}
+.msg{max-width:84%;padding:12px 15px;border-radius:16px;font-size:14.5px;line-height:1.55}
+.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:5px;font-weight:500}
+.ai{align-self:flex-start;background:#141d30;border:1px solid var(--line-2);border-bottom-left-radius:5px;color:#d5dcea}
+.ai code{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--accent)}
+.typing{align-self:flex-start;display:flex;gap:5px;padding:13px 16px;background:#141d30;border:1px solid var(--line-2);border-radius:16px;border-bottom-left-radius:5px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.18s}
+.typing span:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.chat-input{margin:10px 18px 18px;padding:12px 16px;border:1px solid var(--line-2);border-radius:12px;color:#5d6a82;font-size:14px;background:var(--bg)}
+
+/* sections */
+section{padding:84px 0}
+.sec-head{max-width:34em;margin-bottom:44px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.025em;margin-bottom:14px}
+.sec-head p{color:var(--muted);font-size:17px}
+
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px;transition:border-color .25s}
+.tile:hover{border-color:var(--line-2)}
+.tile h3{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.tile p{color:var(--muted);font-size:15.5px;max-width:30em}
+.t-chat{grid-column:span 3;background:linear-gradient(135deg,#0f1a2b,var(--surface))}
+.t-models{grid-column:span 3}
+.t-code{grid-column:span 3}
+.t-prod{grid-column:span 3}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{padding:7px 14px;border:1px solid var(--line-2);border-radius:999px;font:500 13.5px var(--body);color:#c4cddd;background:var(--bg);cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.chip:hover{border-color:#3a4a68}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent-ink);background:var(--accent);font-weight:600}
+.model-info{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:#b3bdd0;font-size:14.5px;min-height:74px}
+.model-info b{display:block;color:var(--text);font-family:var(--display);font-size:15.5px;margin-bottom:3px}
+.t-img{grid-column:span 6;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 30px;background:linear-gradient(135deg,#0f1a2b,var(--surface))}
+.win-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border:1px solid var(--line-2);border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text);background:var(--bg)}
+
+.about-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start;padding:48px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,var(--surface),var(--bg))}
+.about-box p{color:#a6b1c6;font-size:17.5px;line-height:1.75}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:36px 0 44px;margin-top:40px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center;color:#66738a;font-size:14px}
+.f-links{display:flex;flex-wrap:wrap;gap:22px}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--accent)}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+.modal-overlay.active{display:flex}
+.download-modal{width:100%;max-width:570px;max-height:90vh;overflow-y:auto;background:var(--surface);border:1px solid var(--line-2);border-radius:22px;padding:32px;box-shadow:0 20px 70px rgba(0,0,0,.6);animation:modalIn .22s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.modal-icon{width:52px;height:52px;border-radius:50%;background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.3);display:flex;align-items:center;justify-content:center;font-size:25px;margin-bottom:18px}
+.download-modal h2{font-size:27px;margin-bottom:12px}
+.download-modal .intro{color:var(--muted);font-size:15px;margin-bottom:22px}
+.warning-box{background:var(--surface-2);border:1px solid var(--line-2);border-radius:14px;padding:18px;margin-bottom:14px}
+.warning-box h3{color:var(--accent);font-family:var(--display);font-size:16px;margin-bottom:8px}
+.warning-box p,.warning-box ul{color:var(--muted);font-size:14px;line-height:1.65}
+.warning-box ul{margin:10px 0 0 20px}
+.warning-box.important{border-color:rgba(255,193,7,.35)}
+.warning-box.important h3{color:var(--warn)}
+.modal-actions{display:flex;gap:10px;margin-top:22px}
+.modal-actions a,.modal-actions button{flex:1;min-height:48px;border-radius:12px;font:700 14px var(--body);cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.apk-download{background:var(--accent);color:var(--accent-ink);border:none}
+.apk-download:hover{filter:brightness(.92)}
+.cancel-btn{background:transparent;color:var(--text);border:1px solid var(--line-2)}
+.cancel-btn:hover{border-color:var(--accent);color:var(--accent)}
+.modal-note{text-align:center;margin-top:14px;color:#5d6a82;font-size:12px}
+
+/* responsive */
+@media(max-width:900px){
+  .hero{padding:64px 0 56px}
+  .hero .wrap{grid-template-columns:1fr;gap:44px}
+  .t-chat,.t-models,.t-code,.t-prod,.t-img{grid-column:span 6}
+  .about-box{grid-template-columns:1fr;gap:18px;padding:30px}
+}
+@media(max-width:600px){
+  nav{gap:16px}
+  nav a.hide-sm{display:none}
+  section{padding:60px 0}
+  .btn{width:100%}
+  .download-modal{padding:23px}
+  .modal-actions{flex-direction:column}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
-
 <body>
 
 <header>
-
-    <div class="logo">
-        NEXORA <span>AI</span>
-    </div>
-
+  <div class="wrap">
+    <a class="logo" href="#top">NEXORA <span>AI</span></a>
     <nav>
-        <a href="https://nexora-ai.awwabkhan669.workers.dev" target="_blank" style="color:#39ff88; font-weight: bold;">Launch Web AI 🌐</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
+      <a class="hide-sm" href="#features">Features</a>
+      <a class="hide-sm" href="#about">About</a>
+      <a class="nav-cta" href="https://nexora-ai.awwabkhan669.workers.dev" target="_blank" rel="noopener">Launch Web AI</a>
     </nav>
-
+  </div>
 </header>
 
+<main id="top">
 
-<section class="hero">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="pill"><i></i>Now on Web and Windows</div>
+      <h1>Your AI.<br><em>Your Way.</em></h1>
+      <p class="lead">NEXORA AI is a smart AI assistant built for chatting, coding, productivity and everyday tasks, all in one place.</p>
 
-    <div class="badge">
-        SMART • FAST • AI POWERED
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://nexora-ai.awwabkhan669.workers.dev" target="_blank" rel="noopener">Open NEXORA Web AI</a>
+        <a class="btn btn-ghost" href="https://github.com/awwab-me/https-awwaabkhan.github.io/releases/latest/download/NEXORA_AI_Setup.exe">Download for Windows</a>
+        <button class="btn btn-off" disabled>Android APK: coming back soon</button>
+      </div>
+      <p class="avail">Available on Web and Windows PC. The Android version is temporarily unavailable and will be back soon.</p>
     </div>
 
-    <h1>
-        Your AI.<br>
-        <span>Your Way.</span>
-    </h1>
-
-    <p>
-        NEXORA AI is a smart AI assistant built for chatting, coding,
-        productivity and everyday AI tasks — all in one place.
-    </p>
-
-    <div class="buttons">
-
-        <!-- DIRECT WEB AI ACCESS BUTTON -->
-        <a class="btn web-ai-btn" href="https://nexora-ai.awwabkhan669.workers.dev" target="_blank">
-            Open NEXORA Web AI 🌐
-        </a>
-
-        <!-- WINDOWS DOWNLOAD -->
-        <a class="btn download windows-btn"
-           href="https://github.com/awwab-me/https-awwaabkhan.github.io/releases/latest/download/NEXORA_AI_Setup.exe">
-            Download for Windows
-        </a>
-
-        <!-- ANDROID APK DOWNLOAD -->
-        <button class="btn android-btn" disabled
-                style="background:#1d2a40; color:#9aa6ba; border:1px solid #26334a; cursor:not-allowed;">
-            Android APK — Temporarily Unavailable
-        </button>
-
-        <p class="download-info">
-            Available on Web & Windows PC. The Android version is temporarily unavailable and will be back soon.
-        </p>
-
-        <a class="btn secondary" href="#features">
-            Explore Features
-        </a>
-
-        <a class="btn secondary" href="#about">
-            Learn More
-        </a>
-
+    <div class="chat" aria-hidden="true">
+      <div class="chat-top"><b></b><b></b><b></b><span>NEXORA AI</span></div>
+      <div class="chat-body">
+        <div class="msg me">Explain recursion in simple words and show a Python example.</div>
+        <div class="msg ai">Recursion is when a function solves a problem by calling itself on a smaller piece of it. Here’s a countdown: <code>def count(n): ...</code></div>
+        <div class="msg me">Now help me debug my loop.</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+      <div class="chat-input">Ask NEXORA anything…</div>
     </div>
-
-</section>
-
-
-<section id="features">
-
-    <h2 class="section-title">
-        Powerful AI Features
-    </h2>
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h3>AI Chat</h3>
-
-            <p>
-                Chat with an intelligent AI assistant for questions,
-                ideas, explanations and everyday tasks.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Multiple AI Models</h3>
-
-            <p>
-                NEXORA AI can work with multiple AI providers including
-                Gemini, OpenRouter and Groq.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Coding Assistant</h3>
-
-            <p>
-                Get help with programming, debugging, explanations
-                and development projects.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Productivity</h3>
-
-            <p>
-                Use NEXORA AI for school work, projects, ideas,
-                writing and everyday productivity.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section id="about">
-
-    <h2 class="section-title">
-        About NEXORA AI
-    </h2>
-
-    <p class="about">
-
-        NEXORA AI is an AI assistant designed to bring useful artificial
-        intelligence tools into one simple application. It is built to
-        help users communicate with AI, learn, code, create and get things
-        done more efficiently.
-
-    </p>
-
-</section>
-
-
-<footer>
-
-    <p>
-        © 2026 NEXORA AI. All rights reserved.
-    </p>
-
-    <div style="margin-top: 12px;">
-
-        <a href="privacy.html">
-            Privacy Policy
-        </a>
-
-        <a href="terms.html">
-            Terms of Service
-        </a>
-
-    </div>
-
-    <div style="margin-top: 14px;">
-        AI Support:
-        <a href="mailto:nexoraaisupport0@gmail.com">
-            nexoraaisupport0@gmail.com
-        </a>
-    </div>
-
-</footer>
-
-
-<!-- =========================================
-    APK WARNING MODAL
-========================================= -->
-
-<div class="modal-overlay"
-     id="apkWarningModal"
-     onclick="closeAPKWarningOutside(event)">
-
-    <div class="download-modal">
-
-        <div class="modal-icon">
-            ⚠️
-        </div>
-
-        <h2>
-            Before You Download
-        </h2>
-
-        <p class="intro">
-
-            NEXORA AI for Android is distributed as an APK file.
-            Because the app is downloaded outside the Google Play Store,
-            your browser or Android device may display a security
-            warning or installation confirmation.
-
-        </p>
-
-
-        <div class="warning-box">
-
-            <h3>
-                📱 Android Security Messages
-            </h3>
-
-            <p>
-                Depending on your Android device and browser, you may see
-                messages such as:
-            </p>
-
-            <ul>
-                <li>
-                    “This type of file can harm your device”
-                </li>
-
-                <li>
-                    “For your security, your phone currently isn't
-                    allowed to install unknown apps”
-                </li>
-
-                <li>
-                    A security scan or installation confirmation
-                </li>
-
-                <li>
-                    Other APK installation prompts
-                </li>
-            </ul>
-
-        </div>
-
-
-        <div class="warning-box">
-
-            <h3>
-                📲 After Downloading
-            </h3>
-
-            <p>
-                Open the downloaded APK and follow the Android
-                installation prompts. Android may ask you to review
-                installation permissions or security settings.
-            </p>
-
-        </div>
-
-
-        <div class="warning-box important">
-
-            <h3>
-                ⚠️ Important
-            </h3>
-
-            <p>
-                Only download NEXORA AI if you intentionally came to
-                the official NEXORA AI website. Always review security
-                warnings and permissions shown by your device before
-                installing an application.
-            </p>
-
-        </div>
-
-
-        <div class="modal-actions">
-
-            <!-- UPDATED GITHUB RELEASE APK LINK -->
-
-            <a class="apk-download"
-               href="https://github.com/awwab-me/nexora-android/releases/latest/download/nexora.apk">
-                DOWNLOAD APK
-            </a>
-
-            <button class="cancel-btn"
-                    onclick="closeAPKWarning()">
-                ← BACK / CANCEL
-            </button>
-
-        </div>
-
-
-        <p class="modal-note">
-            You can cancel at any time without downloading the APK.
-        </p>
-
-    </div>
-
+  </div>
 </div>
 
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Everything you need from an AI assistant</h2>
+      <p>Ask questions, write code and get work done without switching between tools.</p>
+    </div>
+
+    <div class="bento">
+      <div class="tile t-chat">
+        <h3>AI Chat</h3>
+        <p>Chat with an intelligent assistant for questions, ideas, explanations and everyday tasks.</p>
+      </div>
+      <div class="tile t-models">
+        <h3>Multiple AI Models</h3>
+        <p>Works with several AI providers. Tap one to see what it offers.</p>
+        <div class="chips" role="group" aria-label="AI providers">
+          <button class="chip" type="button" data-model="gemini" aria-pressed="true">Gemini</button>
+          <button class="chip" type="button" data-model="openrouter" aria-pressed="false">OpenRouter</button>
+          <button class="chip" type="button" data-model="groq" aria-pressed="false">Groq</button>
+        </div>
+        <div class="model-info" id="modelInfo" aria-live="polite"></div>
+      </div>
+      <div class="tile t-code">
+        <h3>Coding Assistant</h3>
+        <p>Get help with programming, debugging, explanations and development projects.</p>
+      </div>
+      <div class="tile t-prod">
+        <h3>Productivity</h3>
+        <p>Use NEXORA AI for school work, projects, ideas, writing and everyday productivity.</p>
+      </div>
+      <div class="tile t-img">
+        <div>
+          <h3>Image Generation</h3>
+          <p>Describe what you want and NEXORA AI creates the image for you. This feature is available in the Windows app only.</p>
+        </div>
+        <span class="win-badge">🖥️ Windows only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-box">
+      <h2>About NEXORA AI</h2>
+      <p>NEXORA AI is an AI assistant designed to bring useful artificial intelligence tools into one simple application. It is built to help users communicate with AI, learn, code, create and get things done more efficiently.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 NEXORA AI. All rights reserved.</p>
+    <div class="f-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="mailto:nexoraaisupport0@gmail.com">nexoraaisupport0@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- APK WARNING MODAL (kept ready for when the Android button is re-enabled) -->
+<div class="modal-overlay" id="apkWarningModal" onclick="closeAPKWarningOutside(event)">
+  <div class="download-modal">
+    <div class="modal-icon">⚠️</div>
+    <h2>Before you download</h2>
+    <p class="intro">NEXORA AI for Android is distributed as an APK file. Because the app is downloaded outside the Google Play Store, your browser or Android device may display a security warning or installation confirmation.</p>
+
+    <div class="warning-box">
+      <h3>📱 Android security messages</h3>
+      <p>Depending on your Android device and browser, you may see messages such as:</p>
+      <ul>
+        <li>“This type of file can harm your device”</li>
+        <li>“For your security, your phone currently isn’t allowed to install unknown apps”</li>
+        <li>A security scan or installation confirmation</li>
+        <li>Other APK installation prompts</li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <h3>📲 After downloading</h3>
+      <p>Open the downloaded APK and follow the Android installation prompts. Android may ask you to review installation permissions or security settings.</p>
+    </div>
+
+    <div class="warning-box important">
+      <h3>⚠️ Important</h3>
+      <p>Only download NEXORA AI if you intentionally came to the official NEXORA AI website. Always review security warnings and permissions shown by your device before installing an application.</p>
+    </div>
+
+    <div class="modal-actions">
+      <a class="apk-download" href="https://github.com/awwab-me/nexora-android/releases/latest/download/nexora.apk">Download APK</a>
+      <button class="cancel-btn" onclick="closeAPKWarning()">Cancel</button>
+    </div>
+    <p class="modal-note">You can cancel at any time without downloading the APK.</p>
+  </div>
+</div>
 
 <script>
+function openAPKWarning(){
+  document.getElementById("apkWarningModal").classList.add("active");
+  document.body.style.overflow="hidden";
+}
+function closeAPKWarning(){
+  document.getElementById("apkWarningModal").classList.remove("active");
+  document.body.style.overflow="";
+}
+function closeAPKWarningOutside(e){
+  if(e.target.id==="apkWarningModal"){closeAPKWarning();}
+}
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){closeAPKWarning();}
+});
 
-    function openAPKWarning() {
-
-        document
-            .getElementById("apkWarningModal")
-            .classList.add("active");
-
-        document.body.style.overflow = "hidden";
-    }
-
-
-    function closeAPKWarning() {
-
-        document
-            .getElementById("apkWarningModal")
-            .classList.remove("active");
-
-        document.body.style.overflow = "";
-    }
-
-
-    function closeAPKWarningOutside(event) {
-
-        if (event.target.id === "apkWarningModal") {
-
-            closeAPKWarning();
-
-        }
-
-    }
-
-
-    document.addEventListener("keydown", function(event) {
-
-        if (event.key === "Escape") {
-
-            closeAPKWarning();
-
-        }
-
-    });
-
+var MODELS={
+  gemini:{n:"Gemini",d:"Google’s AI models, a good fit for everyday questions, writing and explanations."},
+  openrouter:{n:"OpenRouter",d:"One connection to many different AI models from various providers."},
+  groq:{n:"Groq",d:"Known for very fast responses when you want answers quickly."}
+};
+function showModel(key){
+  var m=MODELS[key];
+  document.getElementById("modelInfo").innerHTML="<b>"+m.n+"</b>"+m.d;
+  document.querySelectorAll(".chip").forEach(function(c){
+    c.setAttribute("aria-pressed",c.dataset.model===key?"true":"false");
+  });
+}
+document.querySelectorAll(".chip").forEach(function(c){
+  c.addEventListener("click",function(){showModel(c.dataset.model);});
+});
+showModel("gemini");
 </script>
 
 </body>
